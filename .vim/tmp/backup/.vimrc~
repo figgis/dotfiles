@@ -1,0 +1,301 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General system wide setup
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible
+"source $VIMRUNTIME/vimrc_example.vim
+filetype off
+call pathogen#helptags()
+call pathogen#runtime_append_all_bundles()
+filetype plugin indent on
+
+"source $VIMRUNTIME/mswin.vim
+"behave mswin
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Theme/colors
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"colorscheme zenburn "my favourite
+"colorscheme desert  "my other favourite
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Tabs/spaces
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+
+" Basic options
+set encoding=utf-8
+set scrolloff=4 "always show 4 lines above and beyond cursor pos
+set autoindent
+set showmode
+set showcmd
+set hidden
+set visualbell
+set history=1000 "How many lines of history to remember
+set undolevels=1000
+set number "line numbers
+set backspace=indent,eol,start
+set laststatus=2 "always show status line
+" Maki GUI File Open use current directory
+set browsedir=buffer
+set nowrap
+set modeline
+set relativenumber
+" set foldmethod=marker
+
+"Backups
+set nobackup
+set noswapfile
+"set backupdir=~/.vim/tmp/backup// " backups
+"set directory=~/.vim/tmp/swap//   " swap files
+"set backup                        " enable backups
+
+" Leader
+let mapleader = ","
+
+" searching
+set incsearch "incremental search
+set ignorecase "clever search
+set smartcase
+set showmatch
+set hlsearch
+"set gdefault
+map <leader><space> :noh<cr>
+
+" Show whitespace
+set list listchars=tab:»·,trail:·,extends:#
+
+" colorscheme (terminal)
+syntax on
+set background=dark
+colorscheme desert
+
+" NERD Tree
+map <F2> :NERDTreeToggle<cr>
+let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$']
+
+" Use the damn hjkl keys
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+
+" And make them fucking work, too.
+nnoremap j gj
+nnoremap k gk
+
+" Easy buffer navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+map <leader>w <C-w>v<C-w>l
+
+" Fuck you, help key.
+"set fuoptions=maxvert,maxhorz
+inoremap <F1> <ESC>:set invfullscreen<CR>a
+nnoremap <F1> :set invfullscreen<CR>
+vnoremap <F1> :set invfullscreen<CR>
+
+" Clean whitespace
+map <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
+" Yankring
+nnoremap <silent> <F3> :YRShow<cr>
+nnoremap <silent> <leader>y :YRShow<cr>
+
+nmap <leader>m :make<cr>
+
+" Save when losing focus
+au FocusLost * :wa
+
+" pastekey
+set pastetoggle=<F4>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" font
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set guifont=proggycleanTT\ 12
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Key mappings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"ecs is so far far avay...
+imap <silent> jj <esc>
+
+" open new file dialog ,b
+map ,b :browse confirm e<cr>
+
+"make it easy to update/reload_vimrc
+nmap ,s :source $HOME/.vimrc
+nmap <leader>v :e $HOME/.vimrc
+
+"search for visually highlighted text
+:vmap // y/<C-R>"<CR>
+
+"Pressing F5 lists all buffer, just type number
+map <F5> :ls<CR>:e #
+
+"first level heading
+map h1 yypVr=o
+"second level heading
+map h2 yypVr-o
+"third level heading
+map h3 yypVr^o
+"map h3 :s/\(.*\)/-\1-/<cr>o
+
+"toggle menu on or off for gui-version
+map <silent> <S-F3> :if &guioptions =~# 'T' <Bar>
+                        \set guioptions-=T <Bar>
+                        \set guioptions-=m <Bar>
+                     \else <Bar>
+                        \set guioptions+=T <Bar>
+                        \set guioptions+=m <Bar>
+                     \endif<CR>
+
+"cycle through buffers
+map <C-Tab> <ESC>:bn<CR>
+map <C-S-Tab> <ESC>:bp<CR>
+
+"scroll with line in center
+map <C-Up> <ESC>0kzz
+map <C-Down> <ESC>0jzz
+
+
+"map ö [
+"map ä ]
+"map <C-ö> <C-[>
+"map <C-ä> <C-]>
+
+" Edit another file in the same directory as the current file
+" uses expression to extract path from current file's path
+" (thanks Douglas Potts)
+"if has("unix")
+"  map ,e :e <C-R>=expand("%:p:h") . '/'<CR>
+"else
+"  map ,e :e <C-R>=expand("%:p:h") . '\'<CR>
+"endif
+"map ,cd :cd %:p:h<CR>
+
+" pull full path name into paste buffer for attachment to email etc
+"nnoremap <F2> :let @*=substitute(expand("%:p"), "/", "\\", "g")<cr>
+
+" remove trailing whitespace
+"nnoremap <silent> <F12> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Python
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"au FileType python source c:/program files/vim/vimfiles/scripts/python.vim
+autocmd filetype python set expandtab
+let python_highlight_all=1
+
+"latex stuff
+"map l1 69I%j2I%<ESC>dd2p69I%<ESC>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Files
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+":nmap <F1> :tabe h:\program\python\depgraph\ver_01\DepGraph.py
+":nmap <F2> :tabe h:\program\python\vsparser\ver_01\vsparser.py
+":nmap <F9> :e c:\cygwin\home\Fredrik\repository\python\bitrate\demo\h264\bitrate.py
+
+" good command to know
+" ====================
+" :echo $VIM
+" :echo $HOME
+" :%s/\s\+$//   remove whitespace @ end of line
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Buffer mangement
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set hidden
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Abbreviations
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+iabbrev EMP Ericsson Mobile Platforms
+iabbrev myMail Fredrik.F.Nilsson@ericsson.com
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Spell
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set spelllang=en_us
+set spellsuggest=5
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Baloons
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"set ballooneval
+"set balloondelay=400
+"set balloonexpr=FoldSpellBalloon()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Functions
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"function! FoldSpellBalloon()
+"    "let foldStart = foldclosed(v:beval_lnum)
+"    "let foldEnd   = foldclosedend(v:beval_lnum)
+"    let lines = []
+"    " Detect if we are in a fold
+"    "if foldStart < 0
+" " Detect if we are on a misspelled word
+" let lines = spellsuggest(spellbadword(v:beval_text)[0],5 ,0)
+"    "else
+" " we are in a fold
+"    "endif
+"    "return result
+"    return join(lines, has("balloon_multiline") ? "\n" : " ")
+"endfunction
+"set gfn=arial:h12:cDEFAULT
+"set enc=utf-8
+"set fenc=utf-8
+"set tenc=utf-8
+"
+function! SuperCleverTab()
+    "check if at beginning of line or after a space
+    if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+        return "\<Tab>"
+    else
+        "do we have omni completion available"
+        if &omnifunc != ''
+            "use omni-completion 1. priority
+            return "\<C-X>\<C-O>"
+        elseif &dictionary != ''
+            "no omni-completion, try dictionary dito
+            return "\<C-K>"
+        else
+            "use known-word comp"
+            return "\<C-P>"
+        endif
+    endif
+endfunction
+
+"bind function to tab key
+inoremap <Tab> <C-R>=SuperCleverTab()<cr>
+
+"augroup filetypedetect
+"au BufNewFile,BufRead *.asy     setf asy
+"augroup END
+"filetype plugin on
+
+""special section for latex
+"" IMPORTANT: win32 users will need to have 'shellslash' set so that latex
+"" can be called correctly.
+"set shellslash
+"
+"" IMPORTANT: grep will sometimes skip displaying the file name if you
+"" search in a singe file. This will confuse Latex-Suite. Set your grep
+"" program to always generate a file-name.
+"set grepprg=grep\ -nH\ $*
+"
+"" OPTIONAL: This enables automatic indentation as you type.
+"filetype indent on
+"
+"" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
+"" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
+"" The following changes the default filetype back to 'tex':
+"let g:tex_flavor='latex'
